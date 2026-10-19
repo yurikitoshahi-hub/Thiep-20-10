@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Điện Tử 20/10 - Tôn Vinh Phụ Nữ Việt Nam</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary: #e91e63;
+            --primary-light: #f8bbd0;
+            --secondary: #ad1457;
+            --accent: #ff80ab;
+            --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-main: #4a154b;
+            --text-sub: #880e4f;
+            --shadow: 0 10px 30px rgba(233, 30, 99, 0.15);
+        }
+
+        body.theme-gold {
+            --primary: #d4af37;
+            --primary-light: #f3e5ab;
+            --secondary: #8c7853;
+            --accent: #ffd700;
+            --bg-gradient: linear-gradient(135deg, #fffdf0 0%, #fdf5c9 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-main: #3d3522;
+            --text-sub: #6b5b37;
+            --shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        body.theme-lavender {
+            --primary: #8e44ad;
+            --primary-light: #d7bde2;
+            --secondary: #512e5f;
+            --accent: #bb8fce;
+            --bg-gradient: linear-gradient(135deg, #f4ecf7 0%, #ebdef0 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-main: #4a235a;
+            --text-sub: #512e5f;
+            --shadow: 0 10px 30px rgba(142, 68, 173, 0.15);
+        }
+
+        body.theme-mint {
+            --primary: #00b09b;
+            --primary-light: #a3e4d7;
+            --secondary: #0e6251;
+            --accent: #48c9b0;
+            --bg-gradient: linear-gradient(135deg, #e8f8f5 0%, #d1f2eb 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-main: #0b5345;
+            --text-sub: #0e6251;
+            --shadow: 0 10px 30px rgba(0, 176, 155, 0.15);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            transition: background 0.5s ease;
+            padding-bottom: 50px;
+        }
+
+        #fxCanvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-title .icon-20 {
+            width: 40px; height: 40px;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+        }
+
+        .logo-title h1 {
+            font-size: 1.1rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary);
+        }
+
+        .logo-title p { font-size: 0.75rem; color: #666; }
+
+        .audio-player-widget {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.8);
+            padding: 6px 14px;
+            border-radius: 30px;
+            border: 1px solid var(--primary-light);
+        }
+
+        .audio-player-widget select {
+            border: none; background: transparent;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem; color: var(--text-main);
+            outline: none; cursor: pointer;
+        }
+
+        .music-btn {
+            background: var(--primary);
+            color: white; border: none;
+            width: 32px; height: 32px;
+            border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .studio-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255,255,255,0.8);
+            margin-bottom: 30px;
+        }
+
+        .section-tag {
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--secondary);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .studio-card h2 {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--secondary);
+            margin-bottom: 8px;
+        }
+
+        .studio-desc {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media(max-width: 768px) {
+            .form-grid { grid-template-columns: 1fr; }
+        }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group.full { grid-column: 1 / -1; }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-sub);
+        }
+
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid var(--primary-light);
+            border-radius: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            background: #fff;
+            color: var(--text-main);
+            outline: none;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .theme-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .theme-btn {
+            padding: 10px;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            background: #fff;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .theme-btn.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .theme-dot { width: 12px; height: 12px; border-radius: 50%; }
+
+        .template-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .template-opt {
+            border: 2px solid #eee;
+            border-radius: 12px;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            background: #fff;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .template-opt i {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+            display: block;
+            color: var(--primary);
+        }
+
+        .template-opt.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .preset-wishes {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .preset-chip {
+            background: rgba(233, 30, 99, 0.08);
+            border: 1px solid var(--primary-light);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            color: var(--text-sub);
+            font-weight: 500;
+        }
+
+        .preset-chip:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .file-upload-box {
+            border: 2px dashed var(--primary);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            background: rgba(255,255,255,0.7);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .file-upload-box input {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; cursor: pointer;
+        }
+
+        .preview-thumbnails {
+            display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap;
+        }
+
+        .thumb-item {
+            width: 55px; height: 55px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+        }
+
+        .btn-action {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.3);
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .card-stage {
+            display: none;
+            margin-top: 30px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-wrapper {
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            overflow: hidden;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .card-inner-box { padding: 40px 25px; text-align: center; }
+
+        .envelope-flap {
+            font-size: 2.5rem; color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .card-to {
+            font-size: 0.9rem; text-transform: uppercase;
+            letter-spacing: 2px; color: var(--secondary);
+            font-weight: 700; margin-bottom: 8px;
+        }
+
+        .card-recipient-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem; color: var(--primary);
+            margin-bottom: 20px; line-height: 1.1;
+        }
+
+        .card-gallery-container {
+            width: 100%; max-width: 380px; height: 240px;
+            margin: 0 auto 20px auto;
+            border-radius: 14px; overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            background: #eee; position: relative;
+        }
+
+        .card-gallery-container img {
+            width: 100%; height: 100%;
+            object-fit: cover; display: none;
+        }
+
+        .card-gallery-container img.active { display: block; }
+
+        .card-message-text {
+            font-size: 1.05rem; line-height: 1.8;
+            color: #444; margin-bottom: 25px;
+            white-space: pre-line;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        .card-sender-signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem; color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .card-toolbar {
+            display: flex; justify-content: center;
+            gap: 12px; margin-top: 20px; flex-wrap: wrap;
+        }
+
+        .btn-tool {
+            padding: 10px 20px; border-radius: 50px;
+            border: none; font-weight: 600; font-size: 0.85rem;
+            cursor: pointer; display: flex; align-items: center; gap: 6px;
+        }
+
+        .btn-edit { background: #fff; color: var(--text-main); border: 1px solid #ccc; }
+        .btn-share { background: #25d366; color: white; }
+        .btn-download { background: var(--primary); color: white; }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(5px);
+            display: none; align-items: center; justify-content: center; z-index: 1000;
+        }
+
+        .modal-content {
+            background: #fff; padding: 25px;
+            border-radius: 20px; max-width: 400px; width: 90%;
+            text-align: center;
+        }
+
+        .share-link-box { display: flex; gap: 8px; margin: 15px 0; }
+        .share-link-box input { flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 8px; font-size: 0.8rem; }
+        .btn-copy { background: var(--primary); color: white; border: none; padding: 0 14px; border-radius: 8px; cursor: pointer; }
+        .modal-close { background: #eee; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; margin-top: 10px; }
+
+        .author-watermark {
+            position: fixed; bottom: 10px; right: 15px;
+            font-size: 0.8rem; color: rgba(0, 0, 0, 0.5);
+            font-weight: 600; z-index: 999; pointer-events: none;
+            background: rgba(255, 255, 255, 0.7); padding: 4px 10px; border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="theme-pink">
+
+    <canvas id="fxCanvas"></canvas>
+    <div class="author-watermark">Tác giả: Nguyễn Thế Vinh</div>
+
+    <div class="container">
+        <header>
+            <div class="logo-title">
+                <div class="icon-20">20</div>
+                <div>
+                    <h1>Tháng 10</h1>
+                    <p>Phụ Nữ Việt Nam</p>
+                </div>
+            </div>
+            <div class="audio-player-widget">
+                <select id="bgMusicSelect" onchange="changeMusicPreset()">
+                    <option value="soft">🎹 Nhẹ Nhàng</option>
+                    <option value="sweet">🎶 Ngọt Ngào</option>
+                    <option value="lullaby">🎵 Êm Ám</option>
+                    <option value="none">🔇 Tắt Nhạc</option>
+                </select>
+                <button class="music-btn" id="musicToggleBtn" onclick="toggleAudio()"><i class="fas fa-play"></i></button>
+            </div>
+        </header>
+
+        <div class="studio-card" id="studioSection">
+            <div class="section-tag">STUDIO THIẾT KẾ THIỆP 20/10</div>
+            <h2>Gửi Trọn Yêu Thương</h2>
+            <p class="studio-desc">Tùy chỉnh giao diện, mẫu thiệp, nhạc nền, ảnh kỷ niệm và lời chúc riêng</p>
+
+            <form id="cardForm" onsubmit="generateCard(event)">
+                <div class="form-group full">
+                    <label>1. Chọn Phông Màu & Chủ Đề</label>
+                    <div class="theme-selector">
+                        <div class="theme-btn active" onclick="setTheme('pink', this)"><span class="theme-dot" style="background:#e91e63"></span>Hồng Anh Đào</div>
+                        <div class="theme-btn" onclick="setTheme('gold', this)"><span class="theme-dot" style="background:#d4af37"></span>Hoa Hồng Gold</div>
+                        <div class="theme-btn" onclick="setTheme('lavender', this)"><span class="theme-dot" style="background:#8e44ad"></span>Tím Lavender</div>
+                        <div class="theme-btn" onclick="setTheme('mint', this)"><span class="theme-dot" style="background:#00b09b"></span>Xanh Mint</div>
+                    </div>
+                </div>
+
+                <div class="form-group full">
+                    <label>2. Chọn Kiểu Dáng Thiết Kế Thiệp</label>
+                    <div class="template-selector">
+                        <div class="template-opt active" onclick="setTemplate(1, this)"><i class="fas fa-envelope-open-text"></i>Thư Tay Mềm</div>
+                        <div class="template-opt" onclick="setTemplate(2, this)"><i class="fas fa-gift"></i>Bưu Thiệp Nổi</div>
+                        <div class="template-opt" onclick="setTemplate(3, this)"><i class="fas fa-certificate"></i>Thiệp Tối Giản</div>
+                        <div class="template-opt" onclick="setTemplate(4, this)"><i class="fas fa-book-open"></i>Sách Kỷ Niệm</div>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="recipientName">Tên Người Nhận</label>
+                        <input type="text" id="recipientName" placeholder="Ví dụ: Mẹ yêu / Người thương..." required value="Mẹ yêu dấu">
+                    </div>
+                    <div class="form-group">
+                        <label for="senderName">Tên Người Gửi</label>
+                        <input type="text" id="senderName" placeholder="Tên của bạn..." required value="Con yêu của mẹ">
+                    </div>
+                </div>
+
+                <div class="form-group full">
+                    <label>Chọn Ảnh Kỷ Niệm (Có thể chọn 1 hoặc nhiều ảnh)</label>
+                    <div class="file-upload-box">
+                        <i class="fas fa-images fa-2x" style="color:var(--primary); margin-bottom: 6px;"></i>
+                        <p style="font-size: 0.8rem; font-weight: 500;">Bấm vào đây để chọn ảnh từ máy</p>
+                        <input type="file" id="imageInput" accept="image/*" multiple onchange="handleImageUpload(event)">
+                    </div>
+                    <div class="preview-thumbnails" id="thumbnailPreview"></div>
+                </div>
+
+                <div class="form-group full">
+                    <label>Lời Chúc 20/10 Ý Nghĩa</label>
+                    <div class="preset-wishes">
+                        <span class="preset-chip" onclick="setWish('Mẹ')">Dành cho Mẹ</span>
+                        <span class="preset-chip" onclick="setWish('Vợ/Người yêu')">Dành cho Vợ/NY</span>
+                        <span class="preset-chip" onclick="setWish('Cô giáo')">Dành cho Cô giáo</span>
+                        <span class="preset-chip" onclick="setWish('Đồng nghiệp')">Bạn bè / Đồng nghiệp</span>
+                        <span class="preset-chip" onclick="randomWish()">🎲 Ngẫu nhiên</span>
+                    </div>
+                    <textarea id="wishContent" rows="4" required>Chúc mừng ngày 20/10! Cảm ơn vì luôn mang đến những nụ cười và ánh sáng ấm áp cho cuộc sống của con. Chúc người phụ nữ tuyệt vời luôn luôn xinh đẹp, hạnh phúc và tràn đầy sức khỏe!</textarea>
+                </div>
+
+                <button type="submit" class="btn-action"><i class="fas fa-paper-plane"></i> Tạo & Gửi Thiệp Điện Tử</button>
+            </form>
+        </div>
+
+        <div class="card-stage" id="cardStage">
+            <div class="card-wrapper" id="cardExportArea"></div>
+            <div class="card-toolbar">
+                <button class="btn-tool btn-edit" onclick="backToStudio()"><i class="fas fa-edit"></i> Sửa lại thiệp</button>
+                <button class="btn-tool btn-share" onclick="openShareModal()"><i class="fas fa-share-alt"></i> Gửi thiệp / Chia sẻ</button>
+                <button class="btn-tool btn-download" onclick="downloadCardImage()"><i class="fas fa-download"></i> Tải ảnh 
